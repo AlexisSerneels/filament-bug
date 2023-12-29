@@ -10,8 +10,9 @@ return new class extends Migration {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->text('name');
-            $table->string('price');
+            $table->string('price')->nullable();
             $table->text('description');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }

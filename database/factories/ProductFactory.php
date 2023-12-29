@@ -22,6 +22,7 @@ class ProductFactory extends Factory
                 'en' => $this->faker->words(3, true),
                 'fr' => $this->faker->words(3, true),
             ],
+            'content' => $this->faker->paragraph(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

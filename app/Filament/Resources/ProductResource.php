@@ -26,19 +26,44 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Tabs::make('tabs')->schema([
-                    Forms\Components\Tabs\Tab::make('Name')->schema([
-                        Forms\Components\TextInput::make('name')
-                    ]),
-                    Forms\Components\Tabs\Tab::make('Price')->schema([
-                        Forms\Components\TextInput::make('price')
-                    ]),
-                    Forms\Components\Tabs\Tab::make('Description')->schema([
-                        Forms\Components\TextInput::make('description')
+
+                Forms\Components\Wizard::make([
+                    Forms\Components\Wizard\Step::make('First Step')->schema([
+                        Forms\Components\Select::make('status')
+                            ->options([
+                                'draft' => 'Draft',
+                                'reviewing' => 'Reviewing',
+                                'published' => 'Published',
+                            ])
+                            ->default('reviewing')
+                            ->selectablePlaceholder(false)
                     ])
-                ])
-                ->persistTab()
-                ->id('products')
+                ]),
+
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'reviewing' => 'Reviewing',
+                        'published' => 'Published',
+                    ])
+                    ->default('reviewing')
+                    ->selectablePlaceholder(false)
+
+//                Forms\Components\Tabs::make('tabs')->schema([
+//                    Forms\Components\Tabs\Tab::make('Name')->schema([
+//                        Forms\Components\TextInput::make('name')
+//                            ->required(),
+//                    ]),
+//                    Forms\Components\Tabs\Tab::make('Price')->schema([
+//                        Forms\Components\TextInput::make('price'),
+//                    ]),
+//                    Forms\Components\Tabs\Tab::make('Description')->schema([
+//                        Forms\Components\TextInput::make('description'),
+//                        Forms\Components\Textarea::make('content')
+//                    ])
+//                ])
+//                    ->persistTab()
+//                    ->id('products'),
             ]);
     }
 
@@ -49,6 +74,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('price')->numeric(),
                 Tables\Columns\TextColumn::make('description'),
+                Tables\Columns\TextColumn::make('content'),
             ])
             ->filters([
                 //
